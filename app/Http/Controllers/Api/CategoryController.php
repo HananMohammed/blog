@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Api\Category;
 
@@ -19,26 +20,19 @@ class CategoryController extends Controller
 
          return $categories;
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created Category in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param  CategoryRequest  $request
+     * @param Category $model
+     * @return Response
      */
-    public function create()
+    public function store(CategoryRequest $request, Category $model)
     {
-        //
-    }
+        $category = $model->create($request->all());
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json(["data"=>$category, "success"=>"Category Stored Successfully "]);
+
     }
 
     /**
@@ -76,13 +70,14 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Category from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
     }
 }

@@ -70285,12 +70285,43 @@ var Add = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Add);
 
   function Add() {
+    var _this;
+
     _classCallCheck(this, Add);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this);
+    _this.state = {
+      category_name: ""
+    };
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.onChangeCategoryName = _this.onChangeCategoryName.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Add, [{
+    key: "onChangeCategoryName",
+    value: function onChangeCategoryName(event) {
+      this.setState({
+        category_name: event.target.value
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(event) {
+      var _this2 = this;
+
+      event.preventDefault();
+      var category = {
+        name: this.state.category_name
+      };
+      axios.post("/category/store", category).then(function (response) {
+        _this2.setState({
+          category_name: ""
+        });
+      } //  browserHistory.push('/category')
+      );
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70300,7 +70331,8 @@ var Add = /*#__PURE__*/function (_Component) {
       }, "Add New Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "form-group"
+        className: "form-group",
+        onSubmit: this.onSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "mb-2",
         htmlFor: "#name"
@@ -70309,7 +70341,9 @@ var Add = /*#__PURE__*/function (_Component) {
         className: "form-control mb-3",
         id: "name",
         name: "name",
-        placeholder: "Enter Category Name ...."
+        placeholder: "Enter Category Name ....",
+        value: this.state.category_name,
+        onChange: this.onChangeCategoryName
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         className: "btn btn-dark",
@@ -70380,6 +70414,7 @@ var Listing = /*#__PURE__*/function (_Component) {
     _this.state = {
       categories: []
     };
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -70389,18 +70424,34 @@ var Listing = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/category').then(function (response) {
-        console.log(response.data);
-
         _this2.setState({
           categories: response.data
         });
+      });
+    }
+  }, {
+    key: "onDelete",
+    value: function onDelete(category_id) {
+      var _this3 = this;
 
-        console.log(_this2.state.categories);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/category/delete/".concat(category_id)).then(function (response) {
+        var categories = _this3.state.categories;
+        categories.forEach(function (category, index) {
+          if (category.id === category_id) {
+            categories.splice(index, 1);
+
+            _this3.setState({
+              categories: categories
+            });
+          }
+        });
       });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "table table-striped component hoverable"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
@@ -70413,12 +70464,22 @@ var Listing = /*#__PURE__*/function (_Component) {
         scope: "col"
       }, "Status"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
-      }, "Created.At"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.categories.map(function (category) {
+      }, "Created.At"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Actions"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.categories.map(function (category) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: category.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
           scope: "row"
-        }, category.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.active), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.created_at));
+        }, category.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.active === 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "text-success"
+        }, "Active ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "text-danger"
+        }, "In Active")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, category.created_at), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "#",
+          className: "btn btn-danger",
+          onClick: _this4.onDelete.bind("category_id", category.id)
+        }, "Delete")));
       })));
     }
   }]);
