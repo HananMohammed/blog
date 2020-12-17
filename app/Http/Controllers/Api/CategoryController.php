@@ -36,37 +36,28 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified Category.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return $category;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CategoryRequest $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id) ;
+        $category->update($request->all()) ;
     }
 
     /**

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Add from "./Add";
 import Listing from "./Listing";
-
+import Edit from "./Edit"
 class Index extends Component{
 
     render() {
@@ -48,6 +48,7 @@ class Index extends Component{
                         <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                             <Route exact path="/category" component={ Listing }></Route>
                             <Route exact path="/category/Add" component={Add}></Route>
+                            <Route exact path="/category/edit/:id" component={Edit}></Route>
                         </div>
                     </div>
                 </div>

@@ -24,3 +24,7 @@ Route::post('/category/store','CategoryController@store');
 
 Route::post('/category/delete/{id}','CategoryController@destroy');
 
+Route::get('/category/edit/{id}','CategoryController@edit');
+
+Route::put('/category/{id}','CategoryController@update');
+
