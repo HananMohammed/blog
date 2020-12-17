@@ -11,6 +11,7 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
 
 
     </head>
@@ -18,5 +19,6 @@
         <div id="app">
         </div>
     <script src="/js/app.js"></script>
+    <script src="/js/script.js"></script>
     </body>
 </html>
