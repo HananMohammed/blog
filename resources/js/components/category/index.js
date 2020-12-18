@@ -10,7 +10,7 @@ class Index extends Component{
             <Router>
                 <div>
                     <div className="row">
-                        <div className="col-md-2 d-none d-md-block bg-light sidebar">
+                        <div className="col-sm-2 d-none d-md-block bg-light sidebar">
                             <div className="sidebar-sticky">
                                 <ul className="nav flex-column">
                                     <li className="nav-item">

@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom" ;
+import Pagination from "react-js-pagination";
 
 class Listing extends Component{
 
     constructor()
     {
         super();
+
         this.state={
             categories: [],
+            activePage: 1,
+            itemsCountPerPage: 1,
+            totalItemsCount: 1,
+            pageRangeDisplayed:1,
         }
         this.onDelete = this.onDelete.bind(this)
     }
@@ -17,7 +23,11 @@ class Listing extends Component{
         axios.get('/category')
             .then( response=>{
                 this.setState({
-                    categories:response.data
+                    categories:response.data.data,
+                    activePage:response.data.current_page,
+                    itemsCountPerPage: response.data.per_page,
+                    totalItemsCount: response.data.total,
+                    pageRangeDisplayed:response.data.last_page
                 });
             })
 
@@ -36,10 +46,23 @@ class Listing extends Component{
                 })
             });
     }
+    handlePageChange(pageNumber){
+        axios.get(`http://127.0.0.1:8000/category?page=${pageNumber}`)
+            .then(response => {
+                this.setState({
+                    categories:response.data.data,
+                    activePage:response.data.current_page,
+                    itemsCountPerPage: response.data.per_page,
+                    totalItemsCount: response.data.total,
+                    pageRangeDisplayed:response.data.last_page
+                });
+            })
+    }
 
     render() {
         return(
-            <table className="table table-striped component hoverable">
+            <div>
+                <table className="table table-striped component hoverable">
                 <thead className="bold-blue bg-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -66,6 +89,18 @@ class Listing extends Component{
                 }
                 </tbody>
             </table>
+                <div className="mt-3 d-flex justify-content-center">
+                    <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.itemsCountPerPage}
+                        totalItemsCount={this.state.totalItemsCount}
+                        pageRangeDisplayed={this.state.pageRangeDisplayed}
+                        onChange={this.handlePageChange.bind(this)}
+                        itemClass="page-item"
+                        linkClass="page-link"
+                    />
+                </div>
+            </div>
          );
     }
 }
