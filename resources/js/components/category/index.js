@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link, Route,Switch } from "react-router-dom";
 import Add from "./Add";
 import Listing from "./Listing";
 import Edit from "./Edit"
@@ -46,9 +46,11 @@ class Index extends Component{
                         </div>
                     </div>
                     <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                        <Route exact path="/category" component={ Listing }></Route>
-                        <Route exact path="/category/Add" component={Add}></Route>
-                        <Route exact path="/category/edit/:id" component={Edit}></Route>
+                        <Switch>
+                            <Route exact path="/category" component={ Listing }></Route>
+                            <Route exact path="/category/Add" component={Add}></Route>
+                            <Route exact path="/category/edit/:id" component={Edit}></Route>
+                        </Switch>
                     </div>
                 </div>
             </div>

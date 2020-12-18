@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Link, Route } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import Home  from './Home' ;
 import About from './About' ;
 import Index from "./category";
-import Listing from "./category/Listing";
-import Add from "./category/Add";
-import Edit from "./category/Edit";
+import Error404 from "./errors/Error404";
 
 class Header extends Component{
     render() {
@@ -39,11 +37,14 @@ class Header extends Component{
                             <button className="btn btn-outline-dark ml-2" type="submit">Search</button>
                         </form>
                     </nav>
+                <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/about' component={About}/>
                 <Route exact path='/category' component={Index}/>
                 <Route exact path="/category/Add" component={Index}></Route>
                 <Route exact path="/category/edit/:id" component={Index}></Route>
+                <Route exact path="/*" component={Error404}></Route>
+                </Switch>
             </div>
         );
     }

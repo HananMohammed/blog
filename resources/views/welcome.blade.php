@@ -20,5 +20,8 @@
         </div>
     <script src="/js/app.js"></script>
     <script src="/js/script.js"></script>
+    <script>
+        var currentUrl = window.location.origin
+    </script>
     </body>
 </html>

@@ -23,7 +23,7 @@ class Listing extends Component{
     }
 
     componentDidMount() {
-        axios.get('/category')
+        axios.get('Api/V1/category')
             .then( response=>{
                 this.setState({
                     categories:response.data.data,
@@ -36,7 +36,7 @@ class Listing extends Component{
 
     }
     onDelete(category_id){
-        axios.post(`/category/delete/${category_id}`)
+        axios.post(`Api/V1/category/delete/${category_id}`)
             .then(response =>{
                  var categories = this.state.categories ;
                 categories.forEach((category, index)=>{
@@ -57,7 +57,7 @@ class Listing extends Component{
         })
     }
     handlePageChange(pageNumber){
-        axios.get(`http://127.0.0.1:8000/category?page=${pageNumber}`)
+        axios.get(`http://127.0.0.1:8000/Api/V1/category?page=${pageNumber}`)
             .then(response => {
                 this.setState({
                     categories:response.data.data,

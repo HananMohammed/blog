@@ -20,7 +20,7 @@ class Edit extends Component{
     }
 
     componentDidMount() {
-        axios.get(`/category/edit/${this.props.match.params.id}`)
+        axios.get(`${currentUrl}/Api/V1/category/edit/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({
                     category_name :response.data.name
@@ -38,7 +38,7 @@ class Edit extends Component{
         const category = {
             name: this.state.category_name
         };
-        axios.put(`/category/${this.props.match.params.id}`, category)
+        axios.put(`${currentUrl}/Api/V1/category/${this.props.match.params.id}`, category)
             .then(response =>{
                 this.setState({
                     category_name: "",

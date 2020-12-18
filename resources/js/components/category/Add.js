@@ -28,7 +28,7 @@ class Add extends Component{
         const category = {
             name: this.state.category_name
         };
-        axios.post("/category/store", category)
+        axios.post(`${currentUrl}/Api/V1/category/store`, category)
             .then(response =>{
                 this.setState({
                     category_name: "",

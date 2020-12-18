@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{path?}',function (){
+Route::get('/{path}',function (){
 
     return view('welcome');
 
