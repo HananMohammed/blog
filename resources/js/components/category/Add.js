@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import SuccessAlert from "../SuccessAlert";
+import ErrorAlert from "../ErrorAlert";
 
 class Add extends Component{
 
@@ -7,7 +9,8 @@ class Add extends Component{
         super();
 
         this.state = {
-            category_name:""
+            category_name:"",
+            alert_message:""
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -27,12 +30,16 @@ class Add extends Component{
         axios.post("/category/store", category)
             .then(response =>{
                 this.setState({
-                    category_name: ""
+                    category_name: "",
+                    alert_message:"success"
                 })
                 }
-
-              //  browserHistory.push('/category')
             )
+            .catch(error => {
+                this.setState({
+                    alert_message:"error"
+                })
+            })
 
     }
     render() {
@@ -40,6 +47,14 @@ class Add extends Component{
             <div className="card component hoverable" >
                 <div className="card-header bg-dark">
                     Add New Category
+                </div>
+                <div className="mt-3">
+                    {
+                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                    }
+                    {
+                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                    }
                 </div>
                 <div className="card-body">
                     <form className="form-group" onSubmit={this.onSubmit}>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom" ;
 import Pagination from "react-js-pagination";
+import SuccessAlert from "../SuccessAlert";
+import ErrorAlert from "../ErrorAlert";
 
 class Listing extends Component{
 
@@ -15,6 +17,7 @@ class Listing extends Component{
             itemsCountPerPage: 1,
             totalItemsCount: 1,
             pageRangeDisplayed:1,
+            alert_message:""
         }
         this.onDelete = this.onDelete.bind(this)
     }
@@ -40,11 +43,18 @@ class Listing extends Component{
                     if(category.id === category_id ){
                         categories.splice(index, 1)
                         this.setState({
-                            categories: categories
+                            categories: categories,
+                            alert_message:"success"
+
                         })
                     }
                 })
-            });
+            })
+            .catch(error => {
+            this.setState({
+                alert_message:"error"
+            })
+        })
     }
     handlePageChange(pageNumber){
         axios.get(`http://127.0.0.1:8000/category?page=${pageNumber}`)
@@ -62,6 +72,14 @@ class Listing extends Component{
     render() {
         return(
             <div>
+                <div className="mt-3">
+                    {
+                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                    }
+                    {
+                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                    }
+                </div>
                 <table className="table table-striped component hoverable">
                 <thead className="bold-blue bg-dark">
                 <tr>

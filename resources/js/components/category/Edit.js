@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SuccessAlert from "../SuccessAlert";
+import ErrorAlert from "../ErrorAlert";
+
 class Edit extends Component{
 
     constructor(props) {
@@ -7,7 +10,8 @@ class Edit extends Component{
         super(props);
 
         this.state = {
-            category_name:""
+            category_name:"",
+            alert_message: ""
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -36,12 +40,17 @@ class Edit extends Component{
         axios.put(`/category/${this.props.match.params.id}`, category)
             .then(response =>{
                 this.setState({
-                    category_name: ""
+                    category_name: "",
+                    alert_message:"success"
                 })
-                console.log(response)
                 }
 
             )
+            .catch(error => {
+                this.setState({
+                    alert_message:"error"
+                })
+            })
 
     }
     render() {
@@ -49,6 +58,14 @@ class Edit extends Component{
             <div className="card component hoverable" >
                 <div className="card-header bg-dark">
                     Edit Category
+                </div>
+                <div className="mt-3">
+                    {
+                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                    }
+                    {
+                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                    }
                 </div>
                 <div className="card-body">
                     <form className="form-group" onSubmit={this.onSubmit}>
