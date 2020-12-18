@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CategoryRequest;
-use Illuminate\Http\Request;
 use App\Models\Api\Category;
 
 class CategoryController extends Controller
@@ -18,7 +17,7 @@ class CategoryController extends Controller
     {
          $categories = Category::paginate(5);
 
-         return $categories;
+        return $categories ;
     }
     /**
      * Store a newly created Category in storage.

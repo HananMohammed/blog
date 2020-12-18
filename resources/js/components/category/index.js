@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Add from "./Add";
 import Listing from "./Listing";
 import Edit from "./Edit"
@@ -7,8 +7,7 @@ class Index extends Component{
 
     render() {
         return(
-            <Router>
-                <div>
+            <div>
                     <div className="row">
                         <div className="col-sm-2 d-none d-md-block bg-light sidebar">
                             <div className="sidebar-sticky">
@@ -52,7 +51,6 @@ class Index extends Component{
                         </div>
                     </div>
                 </div>
-            </Router>
         );
     }
 }

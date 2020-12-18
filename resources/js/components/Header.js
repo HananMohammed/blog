@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Home  from './Home' ;
 import About from './About' ;
 import Index from "./category";
+import Listing from "./category/Listing";
+import Add from "./category/Add";
+import Edit from "./category/Edit";
 
 class Header extends Component{
     render() {
         return (
-            <Router>
+            <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                         <div className="container-fluid">
                             <Link to="/" className="navbar-brand">Landing Page</Link>
@@ -39,7 +42,9 @@ class Header extends Component{
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/about' component={About}/>
                 <Route exact path='/category' component={Index}/>
-            </Router>
+                <Route exact path="/category/Add" component={Index}></Route>
+                <Route exact path="/category/edit/:id" component={Index}></Route>
+            </div>
         );
     }
 }
