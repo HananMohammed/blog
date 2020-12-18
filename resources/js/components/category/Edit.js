@@ -11,7 +11,8 @@ class Edit extends Component{
 
         this.state = {
             category_name:"",
-            alert_message: ""
+            alert_message: "",
+            error_message:""
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -44,12 +45,13 @@ class Edit extends Component{
                     alert_message:"success"
                 })
                 }
-
             )
             .catch(error => {
                 this.setState({
-                    alert_message:"error"
+                    alert_message:"error",
+                    error_message:error.response.data.errors
                 })
+
             })
 
     }
@@ -59,12 +61,12 @@ class Edit extends Component{
                 <div className="card-header bg-dark">
                     Edit Category
                 </div>
-                <div className="mt-3">
+                <div className="m-3">
                     {
-                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                        this.state.alert_message == "success" ? <SuccessAlert message={"Category Updated Successfully "} /> : null
                     }
                     {
-                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                        this.state.alert_message == "error" ? <ErrorAlert message = {this.state.error_message.name[0]} /> : null
                     }
                 </div>
                 <div className="card-body">

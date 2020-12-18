@@ -10,7 +10,8 @@ class Add extends Component{
 
         this.state = {
             category_name:"",
-            alert_message:""
+            alert_message:"",
+            error_message:""
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -37,8 +38,10 @@ class Add extends Component{
             )
             .catch(error => {
                 this.setState({
-                    alert_message:"error"
+                    alert_message:"error",
+                    error_message:error.response.data.errors
                 })
+
             })
 
     }
@@ -50,10 +53,10 @@ class Add extends Component{
                 </div>
                 <div className="mt-3">
                     {
-                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                        this.state.alert_message == "success" ? <SuccessAlert message={"Category Added Successfully "}/> : null
                     }
                     {
-                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                        this.state.alert_message == "error" ? <ErrorAlert message = {this.state.error_message.name[0]} /> : null
                     }
                 </div>
                 <div className="card-body">

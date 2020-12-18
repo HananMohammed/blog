@@ -70515,10 +70515,10 @@ var SuccessAlert = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(SuccessAlert);
 
-  function SuccessAlert() {
+  function SuccessAlert(props) {
     _classCallCheck(this, SuccessAlert);
 
-    return _super.apply(this, arguments);
+    return _super.call(this, props);
   }
 
   _createClass(SuccessAlert, [{
@@ -70527,7 +70527,7 @@ var SuccessAlert = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "alert alert-danger alert-dismissible fade show",
         role: "alert"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, " Error Occurred !"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.props.message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "close",
         "data-dismiss": "alert",
@@ -70929,10 +70929,10 @@ var SuccessAlert = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(SuccessAlert);
 
-  function SuccessAlert() {
+  function SuccessAlert(props) {
     _classCallCheck(this, SuccessAlert);
 
-    return _super.apply(this, arguments);
+    return _super.call(this, props);
   }
 
   _createClass(SuccessAlert, [{
@@ -70941,7 +70941,7 @@ var SuccessAlert = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "alert alert-primary alert-dismissible fade show",
         role: "alert"
-      }, "Record ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Created / Updated / Deleted "), "  Successfully.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.message, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "close",
         "data-dismiss": "alert",
@@ -71011,7 +71011,8 @@ var Add = /*#__PURE__*/function (_Component) {
     _this = _super.call(this);
     _this.state = {
       category_name: "",
-      alert_message: ""
+      alert_message: "",
+      error_message: ""
     };
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onChangeCategoryName = _this.onChangeCategoryName.bind(_assertThisInitialized(_this));
@@ -71041,7 +71042,8 @@ var Add = /*#__PURE__*/function (_Component) {
         });
       })["catch"](function (error) {
         _this2.setState({
-          alert_message: "error"
+          alert_message: "error",
+          error_message: error.response.data.errors
         });
       });
     }
@@ -71054,7 +71056,11 @@ var Add = /*#__PURE__*/function (_Component) {
         className: "card-header bg-dark"
       }, "Add New Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mt-3"
-      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        message: "Category Added Successfully "
+      }) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: this.state.error_message.name[0]
+      }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-group",
@@ -71143,7 +71149,8 @@ var Edit = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       category_name: "",
-      alert_message: ""
+      alert_message: "",
+      error_message: ""
     };
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onChangeCategoryName = _this.onChangeCategoryName.bind(_assertThisInitialized(_this));
@@ -71184,7 +71191,8 @@ var Edit = /*#__PURE__*/function (_Component) {
         });
       })["catch"](function (error) {
         _this3.setState({
-          alert_message: "error"
+          alert_message: "error",
+          error_message: error.response.data.errors
         });
       });
     }
@@ -71196,8 +71204,12 @@ var Edit = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark"
       }, "Edit Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mt-3"
-      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_3__["default"], null) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "m-3"
+      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "Category Updated Successfully "
+      }) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        message: this.state.error_message.name[0]
+      }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-group",
@@ -71361,7 +71373,11 @@ var Listing = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mt-3"
-      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_4__["default"], null) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_5__["default"], null) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+      }, this.state.alert_message == "success" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SuccessAlert__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        message: "Category Deleted Successfully "
+      }) : null, this.state.alert_message == "error" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorAlert__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        message: "Error Occurred While Deleting Category "
+      }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "table table-striped component hoverable"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
         className: "bold-blue bg-dark"

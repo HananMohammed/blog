@@ -74,10 +74,10 @@ class Listing extends Component{
             <div>
                 <div className="mt-3">
                     {
-                        this.state.alert_message == "success" ? <SuccessAlert/> : null
+                        this.state.alert_message == "success" ? <SuccessAlert message={"Category Deleted Successfully "} /> : null
                     }
                     {
-                        this.state.alert_message == "error" ? <ErrorAlert /> : null
+                        this.state.alert_message == "error" ? <ErrorAlert message={"Error Occurred While Deleting Category "} /> : null
                     }
                 </div>
                 <table className="table table-striped component hoverable">
